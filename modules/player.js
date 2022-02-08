@@ -1,14 +1,11 @@
+import createCircle from "./circle.js";
 import vector2 from "./vector2.js";
-const makePlayer = () => {
-    return {
-        radius : 25,
-        speed : 200,
-        color : "#FFFF00",
-        position : vector2(200, 200),
-        velocity : vector2(),
-        update(dt){
-        },
-        draw (context) {
-        },
-    }
+
+const createPlayer = () => {
+    const player = createCircle(25, 300, "#FF0", vector2(200,200));
+    player.update = delta => {};
+    player.draw = context => player.render(context);
+    return player;
 };
+
+export default createPlayer;

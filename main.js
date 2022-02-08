@@ -13,12 +13,13 @@ import createGame from "./modules/game.js";
     
     const main = now =>{
         if (previousTime === null ) previousTime = now;
-        const delta = now - previousTime; 
+        const delta = (now - previousTime) * 0.001; 
         previousTime = now;
         game.update(delta);
         game.draw(canvas.context);
         window.requestAnimationFrame(main);
     };
+
     window.requestAnimationFrame(main);
     window.addEventListener('resize', event => {
         canvas.setSize(window.innerWidth, window.innerHeight);    
