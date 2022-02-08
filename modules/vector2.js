@@ -14,6 +14,7 @@ const vector2 = (x = 0, y = 0) => {
         normalize(){
             let length = this.length();
             if (length != 0) {
+                // length = Math.sqrt(length);
                 this.x /= length;
                 this.y /= length;
             }

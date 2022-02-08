@@ -1,4 +1,5 @@
 import createPlayer from "./player.js";
+import control from "./control.js";
 
 const createGame = () =>{
     const player = createPlayer();

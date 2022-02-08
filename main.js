@@ -1,6 +1,10 @@
 import './style.css';
 import createCanvas from "./modules/canvas.js";
 import createGame from "./modules/game.js";
+import control from "./modules/control.js";
+
+const handlleKeydown = event => control.setDown(event.key);
+const handlleKeyup = event => control.setUp(event.key);
 
 (function init(){
     const app = document.querySelector('#app');
@@ -24,4 +28,6 @@ import createGame from "./modules/game.js";
     window.addEventListener('resize', event => {
         canvas.setSize(window.innerWidth, window.innerHeight);    
     });
+    document.addEventListener('keydown', handlleKeydown, false);
+    document.addEventListener('keyup', handlleKeyup, false);
 })();
