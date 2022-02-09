@@ -3,8 +3,8 @@ import vector2 from "./vector2.js";
 import control from "./control.js";
 
 const PLAYER_RADIUS = 25;
-const PLAYER_INITIAL_POS = vector2( window.innerWidth/2-PLAYER_RADIUS, 
-        window.innerHeight/2-PLAYER_RADIUS );
+const PLAYER_INITIAL_POS = vector2( innerWidth/2-PLAYER_RADIUS,
+    innerHeight/2-PLAYER_RADIUS );
 const PLAYER_SPEED = 300;
 const PLAYER_COLOR = "#FF0"
 const DIRECTION_KEYS = {
