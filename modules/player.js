@@ -1,6 +1,8 @@
 import createCircle from "./circle.js";
+import createBullet  from "./bullet.js";
 import vector2 from "./vector2.js";
 import control from "./control.js";
+
 
 const PLAYER_RADIUS = 25;
 const PLAYER_INITIAL_POS = vector2( innerWidth/2-PLAYER_RADIUS,
@@ -14,9 +16,13 @@ const DIRECTION_KEYS = {
     "a" : vector2(-1,  0 ),
 };
 
+const getBulletIsAlive = bullet => bullet.lifeTime > 0;
+
 const createPlayer = () => {
     const player = createCircle(PLAYER_RADIUS, PLAYER_SPEED, 
         PLAYER_COLOR, PLAYER_INITIAL_POS);
+    player.bullets = [];
+
     player.move = delta => {
         for (let key in DIRECTION_KEYS){
             if (control.isDown(key)) 
@@ -28,14 +34,30 @@ const createPlayer = () => {
     };
     player.shoot = () => {
         if (control.mouseIsDown()){
-            console.log("Shooting...");
+            const mousePosition = control.getMousePosition();
+            const bulletPosition = vector2(player.position.x,player.position.y);
+            player.bullets.push(createBullet(bulletPosition, mousePosition));
         }
+    };
+    player.updateBullets = delta => {
+        for (let bullet of player.bullets){
+            bullet.update(delta);
+        }
+        player.bullets = player.bullets.filter(getBulletIsAlive);
+    };
+    player.renderBullets = context => {
+        for (let bullet of player.bullets)
+            bullet.render(context);
     };
     player.update = delta => {
         player.move(delta);
         player.shoot();
+        player.updateBullets(delta);
     };
-    player.draw = context => player.render(context);
+    player.draw = context => {
+        player.render(context);
+        player.renderBullets(context);
+    }
     return player;
 };
 
