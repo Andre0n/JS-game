@@ -1,6 +1,7 @@
+import vector2 from "./vector2.js";
 const mouse = {
-  x: innerWidth / 2,
-  y: innerHeight / 2
+    position : vector2(innerWidth / 2, innerHeight / 2),
+    isDown : false
 };
 const keys = {
     "w" : false,
@@ -21,11 +22,19 @@ const control = (() => {
             keys[key] = false;
         },
         setMousePositon(x, y){
-            mouse.x = x;
-            mouse.y = y;
+            mouse.position = vector2(x, y);
         },
-        getMousePositon(x, y){
-            return { x: mouse.x, y:mouse.y};
+        getMousePositon(){
+            return mouse.position;
+        },
+        setMouseDown(){
+           mouse.isDown = true;
+        },
+        setMouseUp(){
+           mouse.isDown = false;
+        },
+        mouseIsDown(){
+           return mouse.isDown;
         }
     }
 })();

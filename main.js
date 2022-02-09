@@ -3,11 +3,13 @@ import createCanvas from "./modules/canvas.js";
 import createGame from "./modules/game.js";
 import control from "./modules/control.js";
 
-const handlleKeydown = event => control.setDown(event.key);
-const handlleKeyup = event => control.setUp(event.key);
-const handlleMouseMove = event => {
-    control.setMousePositon(event.clientX, event.clientY);
+const handlleKeydown = ({key}) => control.setDown(key);
+const handlleKeyup = ({key}) => control.setUp(key);
+const handlleMouseMove = ({clientX, clientY}) => {
+    control.setMousePositon(clientX, clientY);
 };
+const handlleMouseDown = () => control.setMouseDown();
+const handlleMouseUp = () => control.setMouseUp();
 
 (function init(){
     const app = document.querySelector('#app');
@@ -28,10 +30,12 @@ const handlleMouseMove = event => {
     };
 
     window.requestAnimationFrame(main);
-    window.addEventListener('resize', event => {
+    window.addEventListener('resize', () => {
         canvas.setSize(innerWidth, innerHeight);
     });
-    document.addEventListener('keydown', handlleKeydown, false);
-    document.addEventListener('keyup', handlleKeyup, false);
-    document.addEventListener('mousemove', handlleMouseMove, false);
+    window.addEventListener('keydown', handlleKeydown);
+    window.addEventListener('keyup', handlleKeyup);
+    window.addEventListener('mousemove', handlleMouseMove);
+    window.addEventListener('mousedown', handlleMouseDown);
+    window.addEventListener('mouseup', handlleMouseUp);
 })();
