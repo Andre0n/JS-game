@@ -9,11 +9,12 @@ const createCircle = (radius, speed, color, position) =>{
         velocity : vector2(),
         render(context){
             context.beginPath();
-            context.fillStyle = this.color;
-            context.shadowColor = this.color;
             context.arc(this.position.x, this.position.y, 
                 this.radius, 0, 2 * Math.PI, 0);
+            context.fillStyle = this.color;
+            context.shadowColor = this.color;
             context.fill();
+            context.closePath()
         }
     }
 };
