@@ -24,7 +24,7 @@ const control = (() => {
         setMousePositon(x, y){
             mouse.position = vector2(x, y);
         },
-        getMousePositon(){
+        getMousePosition(){
             return mouse.position;
         },
         setMouseDown(){
