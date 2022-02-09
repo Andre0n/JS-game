@@ -5,6 +5,12 @@ const vector2 = (x = 0, y = 0) => {
         add (p_vector){
            return vector2(this.x + p_vector.x, this.y + p_vector.y); 
         },
+        angle(){
+            return Math.atan2(this.y, this.x);
+        },
+        angleToPoint(p_vector){
+            return (p_vector.sub(this)).angle();
+        },
         dot (p_vector){
             return this.x * p_vector.x + this.y * p_vector.y;
         },
@@ -26,6 +32,9 @@ const vector2 = (x = 0, y = 0) => {
         scalar(value) {
             return vector2(this.x * value, this.y * value);
         },
+        sub(p_vector){
+            return vector2(this.x - p_vector.x, this.y - p_vector.y);
+        }
     }
 };
 
