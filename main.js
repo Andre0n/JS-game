@@ -5,6 +5,9 @@ import control from "./modules/control.js";
 
 const handlleKeydown = event => control.setDown(event.key);
 const handlleKeyup = event => control.setUp(event.key);
+const handlleMouseMove = event => {
+    control.setMousePositon(event.clientX, event.clientY);
+};
 
 (function init(){
     const app = document.querySelector('#app');
@@ -12,7 +15,7 @@ const handlleKeyup = event => control.setUp(event.key);
     const game = createGame();
     let previousTime = null;
 
-    canvas.setSize(window.innerWidth, window.innerHeight);
+    canvas.setSize(innerWidth, innerHeight);
     app.appendChild(canvas.element);
     
     const main = now =>{
@@ -26,8 +29,9 @@ const handlleKeyup = event => control.setUp(event.key);
 
     window.requestAnimationFrame(main);
     window.addEventListener('resize', event => {
-        canvas.setSize(window.innerWidth, window.innerHeight);    
+        canvas.setSize(innerWidth, innerHeight);
     });
     document.addEventListener('keydown', handlleKeydown, false);
     document.addEventListener('keyup', handlleKeyup, false);
+    document.addEventListener('mousemove', handlleMouseMove, false);
 })();
