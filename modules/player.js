@@ -3,8 +3,8 @@ import createBullet  from "./bullet.js";
 import vector2 from "./vector2.js";
 import control from "./control.js";
 
-
 const PLAYER_RADIUS = 25;
+const PLAYER_SHOOT_DELAY = 0.25/2;
 const PLAYER_INITIAL_POS = vector2( innerWidth/2-PLAYER_RADIUS,
     innerHeight/2-PLAYER_RADIUS );
 const PLAYER_SPEED = 300;
@@ -22,6 +22,7 @@ const createPlayer = () => {
     const player = createCircle(PLAYER_RADIUS, PLAYER_SPEED, 
         PLAYER_COLOR, PLAYER_INITIAL_POS);
     player.bullets = [];
+    player.lastShot = null;
 
     player.move = delta => {
         for (let key in DIRECTION_KEYS){
@@ -33,10 +34,16 @@ const createPlayer = () => {
         player.velocity = vector2();
     };
     player.shoot = () => {
-        if (control.mouseIsDown()){
-            const mousePosition = control.getMousePosition();
-            const bulletPosition = vector2(player.position.x,player.position.y);
-            player.bullets.push(createBullet(bulletPosition, mousePosition));
+        let now = performance.now() * 0.001;
+        if (player.lastShot === null ) player.lastShoot = now;
+        if (control.mouseIsDown()) {
+            let mousePosition = control.getMousePosition();
+            let bulletPosition = vector2(player.position.x,player.position.y);
+            if ( now - player.lastShot > PLAYER_SHOOT_DELAY){
+                let bullet = createBullet(bulletPosition, mousePosition);
+                player.bullets.push(bullet);
+                player.lastShot = now;
+            }
         }
     };
     player.updateBullets = delta => {
