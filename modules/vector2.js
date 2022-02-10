@@ -11,6 +11,10 @@ const vector2 = (x = 0, y = 0) => {
         angleToPoint(p_vector){
             return (p_vector.sub(this)).angle();
         },
+        distanceTo(p_vector){
+            return Math.sqrt((this.x - p_vector.x) * (this.x - p_vector.x) + 
+                                (this.y - p_vector.y) * (this.y - p_vector.y));
+        },
         dot (p_vector){
             return this.x * p_vector.x + this.y * p_vector.y;
         },
