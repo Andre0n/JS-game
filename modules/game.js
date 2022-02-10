@@ -8,9 +8,11 @@ const ENEMY_SPAWN_RATE = 1.0;
 const ENEMY_SPAWN_DISTANCE = 1500;
 const DIFFICULTY_RATE_INCREASE = 1.01;
 
+const checkEnemyIsAlive = enemy => enemy.isAlive;
+
 const createGame = () =>{
     const player = createPlayer();
-    const enemies = [];
+    let enemies = [];
     let enemySpawnTimer = ENEMY_SPAWN_RATE;
     let difficultyRate = ENEMY_SPAWN_RATE;
 
@@ -32,8 +34,23 @@ const createGame = () =>{
                 difficultyRate /= DIFFICULTY_RATE_INCREASE;
             }
         },
+        checkBulletCollision(){
+            enemies.forEach(enemy=>{
+                if(enemy.isAlive){
+                    player.bullets.forEach(bullet => {
+                        if(enemy.position.distanceTo(bullet.position)
+                            <= bullet.radius + enemy.radius ){
+                            bullet.lifeTime = 0;
+                            enemy.isAlive = false;
+                        }
+                    });
+                }
+            });
+        },
         update(delta){
             this.checkSpawnEnemy(delta);
+            this.checkBulletCollision();
+            enemies = enemies.filter(checkEnemyIsAlive);
             enemies.forEach(enemy => {enemy.update(delta, player.position)});
             player.update(delta);
         },
