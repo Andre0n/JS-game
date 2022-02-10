@@ -4,9 +4,9 @@ import control from "./control.js";
 import vector2 from "./vector2.js";
 import utils from "./utils.js";
 
-const ENEMY_SPAWN_RATE = 1;
+const ENEMY_SPAWN_RATE = 1.0;
 const ENEMY_SPAWN_DISTANCE = 1500;
-const DIFFICULTY_RATE_INCREASE = 100;
+const DIFFICULTY_RATE_INCREASE = 1.01;
 
 const createGame = () =>{
     const player = createPlayer();
