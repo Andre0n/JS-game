@@ -8,7 +8,7 @@ const PLAYER_SHOOT_DELAY = 0.25/2;
 const PLAYER_INITIAL_POS = vector2( innerWidth/2-PLAYER_RADIUS,
     innerHeight/2-PLAYER_RADIUS );
 const PLAYER_SPEED = 300;
-const PLAYER_COLOR = "#FF0"
+const PLAYER_COLOR = "#FF0";
 const DIRECTION_KEYS = {
     "w" : vector2( 0, -1 ),
     "s" : vector2( 0,  1 ),
