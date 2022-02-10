@@ -47,14 +47,11 @@ const createPlayer = () => {
         }
     };
     player.updateBullets = delta => {
-        for (let bullet of player.bullets){
-            bullet.update(delta);
-        }
+        player.bullets.forEach(bullet => {bullet.update(delta)});
         player.bullets = player.bullets.filter(getBulletIsAlive);
     };
     player.renderBullets = context => {
-        for (let bullet of player.bullets)
-            bullet.render(context);
+        player.bullets.forEach(bullet => {bullet.render(context)});
     };
     player.update = delta => {
         player.move(delta);
