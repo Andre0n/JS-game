@@ -2,7 +2,7 @@ import createCircle from "./circle.js";
 import vector2 from "./vector2.js";
 
 const ENEMY_RADIUS = 30;
-const ENEMY_SPEED = 300;
+const ENEMY_SPEED = 150;
 const ENEMY_COLOR = "#FF0"
 
 const createEnemy = (position) => {
