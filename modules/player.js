@@ -3,7 +3,7 @@ import createBullet  from "./bullet.js";
 import vector2 from "./vector2.js";
 import control from "./control.js";
 
-const PLAYER_RADIUS = 25;
+const PLAYER_RADIUS = 30;
 const PLAYER_SHOOT_DELAY = 0.25/2;
 const PLAYER_INITIAL_POS = vector2( innerWidth/2-PLAYER_RADIUS,
     innerHeight/2-PLAYER_RADIUS );
