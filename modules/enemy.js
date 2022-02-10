@@ -2,12 +2,13 @@ import createCircle from "./circle.js";
 import vector2 from "./vector2.js";
 
 const ENEMY_RADIUS = 30;
+const ENEMY_BLUR = 15;
 const ENEMY_SPEED = 150;
-const ENEMY_COLOR = "#FF0"
+const ENEMY_COLOR = "#ff4757"
 
 const createEnemy = (position) => {
-    const enemy = createCircle(ENEMY_RADIUS, ENEMY_SPEED, 
-                                ENEMY_COLOR, position);
+    const enemy = createCircle(ENEMY_RADIUS, ENEMY_SPEED, ENEMY_COLOR, 
+                                ENEMY_BLUR, position);
     enemy.isAlive = true;
     enemy.velocity = vector2();
     enemy.update = (delta, targetPosition) => {

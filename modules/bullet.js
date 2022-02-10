@@ -2,13 +2,14 @@ import createCircle from "./circle.js";
 import vector2 from "./vector2.js"
 
 const BULLET_RADIUS = 15;
-const BULLET_SPEED = 900;
+const BULLET_BLUR = 5;
+const BULLET_SPEED = 700;
 const BULLET_LIFE_TIME = 1.5;
-const BULLET_COLOR = "#FF0";
+const BULLET_COLOR = "#ffdd59";
 
 const createBullet = (position, targetPosition) => {
     const bullet = createCircle(BULLET_RADIUS, BULLET_SPEED, 
-                                BULLET_COLOR, position);
+                                BULLET_COLOR, BULLET_BLUR, position);
 
     bullet.lifeTime = BULLET_LIFE_TIME;
     bullet.direction = position.angleToPoint(targetPosition);
