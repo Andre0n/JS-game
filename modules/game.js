@@ -47,6 +47,17 @@ const createGame = () =>{
                 }
             });
         },
+        checkPlayerCollision(){
+            enemies.forEach(enemy=>{
+                if(enemy.isAlive){
+                    if(enemy.position.distanceTo(player.position)
+                        <= player.radius + enemy.radius ){
+                        player.damage();
+                        enemy.isAlive = false;
+                    }
+                }
+            });
+        },
         update(delta){
             this.checkSpawnEnemy(delta);
             this.checkBulletCollision();
