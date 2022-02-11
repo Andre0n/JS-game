@@ -6,7 +6,7 @@ const hud = (() =>{
         draw(context, playerHealth, playerScore){
             let playerHealthText = createText(`Health: ${playerHealth}`,
                                                "#ffdd59", 0, vector2(30, 80));
-            let playerScoreText = createText(`Health: ${playerScore}`,
+            let playerScoreText = createText(`Score: ${playerScore}`,
                                                "#ffdd59", 1, vector2(30, 100));
             playerHealthText.render(context);
             playerScoreText.render(context);
