@@ -7,8 +7,8 @@ const PLAYER_RADIUS = 30;
 const PLAYER_BLUR = 15;
 const PLAYER_MAX_HEALTH = 10;
 const PLAYER_SHOOT_DELAY = 0.25/2;
-const PLAYER_INITIAL_POS = vector2( innerWidth/2-PLAYER_RADIUS,
-    innerHeight/2-PLAYER_RADIUS );
+const PLAYER_INITIAL_POSITION = vector2( innerWidth/2-PLAYER_RADIUS,
+                                         innerHeight/2-PLAYER_RADIUS );
 const PLAYER_SPEED = 300;
 const PLAYER_COLOR = "#ffdd59";
 const DIRECTION_KEYS = {
@@ -22,7 +22,8 @@ const getBulletIsAlive = bullet => bullet.lifeTime > 0;
 
 const createPlayer = () => {
     const player = createCircle(PLAYER_RADIUS, PLAYER_SPEED, 
-                                PLAYER_COLOR, PLAYER_BLUR,PLAYER_INITIAL_POS);
+                                PLAYER_COLOR, PLAYER_BLUR, 
+                                PLAYER_INITIAL_POS);
     player.bullets = [];
     player.lastShot = null;
     player.health = PLAYER_MAX_HEALTH;
