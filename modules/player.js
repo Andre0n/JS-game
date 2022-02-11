@@ -5,7 +5,7 @@ import control from "./control.js";
 
 const PLAYER_RADIUS = 30;
 const PLAYER_BLUR = 15;
-const PLAYER_MAX_HEALTH = 3;
+const PLAYER_MAX_HEALTH = 10;
 const PLAYER_SHOOT_DELAY = 0.25/2;
 const PLAYER_INITIAL_POS = vector2( innerWidth/2-PLAYER_RADIUS,
     innerHeight/2-PLAYER_RADIUS );
@@ -22,10 +22,12 @@ const getBulletIsAlive = bullet => bullet.lifeTime > 0;
 
 const createPlayer = () => {
     const player = createCircle(PLAYER_RADIUS, PLAYER_SPEED, 
-        PLAYER_COLOR, PLAYER_BLUR,PLAYER_INITIAL_POS);
+                                PLAYER_COLOR, PLAYER_BLUR,PLAYER_INITIAL_POS);
     player.bullets = [];
     player.lastShot = null;
     player.health = PLAYER_MAX_HEALTH;
+
+    player.damage =  () => player.health --;
 
     player.move = delta => {
         for (let key in DIRECTION_KEYS){
@@ -36,6 +38,7 @@ const createPlayer = () => {
         player.position = player.position.add(player.velocity.scalar(delta));
         player.velocity = vector2();
     };
+
     player.shoot = () => {
         let now = performance.now() * 0.001;
         if (player.lastShot === null ) player.lastShoot = now;
@@ -49,22 +52,27 @@ const createPlayer = () => {
             }
         }
     };
+
     player.updateBullets = delta => {
         player.bullets.forEach(bullet => {bullet.update(delta)});
         player.bullets = player.bullets.filter(getBulletIsAlive);
     };
+
     player.renderBullets = context => {
         player.bullets.forEach(bullet => {bullet.render(context)});
     };
+
     player.update = delta => {
         player.move(delta);
         player.shoot();
         player.updateBullets(delta);
     };
+
     player.draw = context => {
         player.render(context);
         player.renderBullets(context);
-    }
+    };
+
     return player;
 };
 
