@@ -27,8 +27,15 @@ const createPlayer = () => {
     player.bullets = [];
     player.lastShot = null;
     player.health = PLAYER_MAX_HEALTH;
+    player.isAlive = true;
 
-    player.damage =  () => player.health --;
+    player.damage =  () => {
+        if (player.health <= 0){
+            player.isAlive = false;
+            return;
+        }
+        player.health --;
+    };
 
     player.move = delta => {
         for (let key in DIRECTION_KEYS){
