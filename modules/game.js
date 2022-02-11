@@ -1,5 +1,6 @@
 import createPlayer from "./player.js";
 import createEnemy from "./enemy.js";
+import hud from "./hud.js";
 import control from "./control.js";
 import vector2 from "./vector2.js";
 import utils from "./utils.js";
@@ -70,7 +71,8 @@ const createGame = () =>{
         draw(context){
             context.clearRect(0, 0, window.innerWidth, window.innerHeight);
             enemies.forEach(enemy => {enemy.draw(context)});
-            this.player.draw(context);
+            player.draw(context);
+            hud.draw(context, player.health);
         }
     }
 };
