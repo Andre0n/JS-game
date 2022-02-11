@@ -7,7 +7,8 @@ const keys = {
     "w" : false,
     "a" : false,
     "s" : false,
-    "d" : false
+    "d" : false,
+    "Escape" : false,
 };
 
 const control = (() => {
