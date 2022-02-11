@@ -28,6 +28,7 @@ const createPlayer = () => {
     player.lastShot = null;
     player.health = PLAYER_MAX_HEALTH;
     player.isAlive = true;
+    player.score = 0;
 
     player.damage =  () => {
         if (player.health <= 0){
