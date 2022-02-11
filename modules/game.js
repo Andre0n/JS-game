@@ -44,6 +44,7 @@ const createGame = () =>{
                             <= bullet.radius + enemy.radius ){
                             bullet.lifeTime = 0;
                             enemy.isAlive = false;
+                            player.increaseScore();
                         }
                     });
                 }
