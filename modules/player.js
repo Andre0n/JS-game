@@ -30,6 +30,10 @@ const createPlayer = () => {
     player.isAlive = true;
     player.score = 0;
 
+    player.increaseScore = () => {
+        player.score ++;
+    };
+
     player.damage =  () => {
         if (player.health <= 0){
             player.isAlive = false;
