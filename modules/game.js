@@ -62,6 +62,7 @@ const createGame = () =>{
         update(delta){
             this.checkSpawnEnemy(delta);
             this.checkBulletCollision();
+            this.checkPlayerCollision();
             enemies = enemies.filter(checkEnemyIsAlive);
             enemies.forEach(enemy => {enemy.update(delta, player.position)});
             player.update(delta);
