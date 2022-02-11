@@ -9,6 +9,7 @@ const ENEMY_SPAWN_DISTANCE = 1500;
 const DIFFICULTY_RATE_INCREASE = 1.01;
 
 const checkEnemyIsAlive = enemy => enemy.isAlive;
+const checkPlayerIsAlive = player => player.isAlive;
 
 const createGame = () =>{
     const player = createPlayer();
