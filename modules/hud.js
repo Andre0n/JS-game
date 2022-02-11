@@ -7,7 +7,7 @@ const hud = (() =>{
             let playerHealthText = createText(`Health: ${playerHealth}`,
                                                "#ffdd59", 0, vector2(30, 80));
             let playerScoreText = createText(`Score: ${playerScore}`,
-                                               "#ffdd59", 1, vector2(30, 100));
+                                               "#ffdd59", 1, vector2(30, 120));
             playerHealthText.render(context);
             playerScoreText.render(context);
         }
