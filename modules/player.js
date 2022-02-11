@@ -5,6 +5,7 @@ import control from "./control.js";
 
 const PLAYER_RADIUS = 30;
 const PLAYER_BLUR = 15;
+const PLAYER_MAX_HEALTH = 3;
 const PLAYER_SHOOT_DELAY = 0.25/2;
 const PLAYER_INITIAL_POS = vector2( innerWidth/2-PLAYER_RADIUS,
     innerHeight/2-PLAYER_RADIUS );
@@ -24,6 +25,7 @@ const createPlayer = () => {
         PLAYER_COLOR, PLAYER_BLUR,PLAYER_INITIAL_POS);
     player.bullets = [];
     player.lastShot = null;
+    player.health = PLAYER_MAX_HEALTH;
 
     player.move = delta => {
         for (let key in DIRECTION_KEYS){
