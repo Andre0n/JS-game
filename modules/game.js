@@ -73,7 +73,7 @@ const createGame = () =>{
             context.clearRect(0, 0, window.innerWidth, window.innerHeight);
             enemies.forEach(enemy => {enemy.draw(context)});
             player.draw(context);
-            hud.draw(context, player.health);
+            hud.draw(context, player.health, player.score);
         }
     }
 };
