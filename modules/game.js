@@ -8,6 +8,7 @@ import utils from "./utils.js";
 const ENEMY_SPAWN_RATE = 1.0;
 const ENEMY_SPAWN_DISTANCE = 1500;
 const DIFFICULTY_RATE_INCREASE = 1.01;
+const  KEY_PRESS_DELAY = 1/2;
 
 const checkEnemyIsAlive = enemy => enemy.isAlive;
 const checkPlayerIsAlive = player => player.isAlive;
@@ -17,6 +18,8 @@ const createGame = () =>{
     let enemies = [];
     let enemySpawnTimer = ENEMY_SPAWN_RATE;
     let difficultyRate = ENEMY_SPAWN_RATE;
+    let isPaused = false;
+    let lastTimePressedKey = null;
 
     return {
         player: player,
@@ -61,13 +64,28 @@ const createGame = () =>{
                 }
             });
         },
+        checkKeyPressed() {
+            if (control.isDown("Escape")){
+                let now = performance.now()*0.001;
+                if (lastTimePressedKey === null ) lastTimePressedKey = now;
+                if (now-lastTimePressedKey > KEY_PRESS_DELAY ){
+                    isPaused = !isPaused;
+                    lastTimePressedKey = now;
+                }
+            }
+        },
         restart(){
             player = createPlayer();
             enemies = [];
             enemySpawnTimer = ENEMY_SPAWN_RATE;
             difficultyRate = ENEMY_SPAWN_RATE;
+            isPause = false;
         },
         update(delta){
+            this.checkKeyPressed();
+            if (isPaused){
+                return;
+            }
             this.checkSpawnEnemy(delta);
             this.checkBulletCollision();
             this.checkPlayerCollision();
@@ -80,6 +98,9 @@ const createGame = () =>{
             enemies.forEach(enemy => {enemy.draw(context)});
             player.draw(context);
             hud.draw(context, player.health, player.score);
+            if (isPaused){
+                return;
+            }
         }
     }
 };
