@@ -8,6 +8,7 @@ const createText = (textValue, color = "#FFF", blur = 0, position) => {
             context.fillStyle = this.color;
             context.shadowColor = this.color;
             context.shadowBlur = this.blur;
+            context.font = "22px 'Press Start 2P'";
             context.fillText(this.value, this.position.x, this.position.y);
         }
     }
