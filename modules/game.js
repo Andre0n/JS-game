@@ -13,7 +13,7 @@ const checkEnemyIsAlive = enemy => enemy.isAlive;
 const checkPlayerIsAlive = player => player.isAlive;
 
 const createGame = () =>{
-    const player = createPlayer();
+    let player = createPlayer();
     let enemies = [];
     let enemySpawnTimer = ENEMY_SPAWN_RATE;
     let difficultyRate = ENEMY_SPAWN_RATE;
@@ -60,6 +60,12 @@ const createGame = () =>{
                     }
                 }
             });
+        },
+        restart(){
+            player = createPlayer();
+            enemies = [];
+            enemySpawnTimer = ENEMY_SPAWN_RATE;
+            difficultyRate = ENEMY_SPAWN_RATE;
         },
         update(delta){
             this.checkSpawnEnemy(delta);
