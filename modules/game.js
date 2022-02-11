@@ -1,5 +1,6 @@
 import createPlayer from "./player.js";
 import createEnemy from "./enemy.js";
+import createText from "./text.js";
 import hud from "./hud.js";
 import control from "./control.js";
 import vector2 from "./vector2.js";
@@ -93,12 +94,21 @@ const createGame = () =>{
             enemies.forEach(enemy => {enemy.update(delta, player.position)});
             player.update(delta);
         },
+        drawPaused(context){
+            let pauseTextPosition = vector2(innerWidth/2-400, innerHeight/2);
+            let pausedText = createText("Game Paused (Press esc to continue)",
+                                        "#000", 0,  pauseTextPosition);
+
+            context.fillRect( 0, 0, innerWidth, innerHeight);
+            pausedText.render(context);
+        },
         draw(context){
             context.clearRect(0, 0, window.innerWidth, window.innerHeight);
             enemies.forEach(enemy => {enemy.draw(context)});
             player.draw(context);
             hud.draw(context, player.health, player.score);
             if (isPaused){
+                this.drawPaused(context);
                 return;
             }
         }
