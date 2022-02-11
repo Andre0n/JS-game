@@ -23,7 +23,7 @@ const getBulletIsAlive = bullet => bullet.lifeTime > 0;
 const createPlayer = () => {
     const player = createCircle(PLAYER_RADIUS, PLAYER_SPEED, 
                                 PLAYER_COLOR, PLAYER_BLUR, 
-                                PLAYER_INITIAL_POS);
+                                PLAYER_INITIAL_POSITION);
     player.bullets = [];
     player.lastShot = null;
     player.health = PLAYER_MAX_HEALTH;
