@@ -1,7 +1,8 @@
 # Shooting Game.
 
 A Javascript game shooting game. 
-Live Demo: andre0n.github.io/red-circle/
+
+Live Demo: https://andre0n.github.io/JS-game/ 
 
 ## Run Locally
 
