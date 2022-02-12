@@ -80,7 +80,7 @@ const createGame = () =>{
             enemies = [];
             enemySpawnTimer = ENEMY_SPAWN_RATE;
             difficultyRate = ENEMY_SPAWN_RATE;
-            isPause = false;
+            isPaused = false;
         },
         update(delta){
             this.checkKeyPressed();
