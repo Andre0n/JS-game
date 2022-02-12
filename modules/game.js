@@ -21,6 +21,7 @@ const createGame = () =>{
     let difficultyRate = ENEMY_SPAWN_RATE;
     let isPaused = false;
     let lastTimePressedKey = null;
+    let gameOver = false;
 
     return {
         player: player,
@@ -31,6 +32,11 @@ const createGame = () =>{
                                          ENEMY_SPAWN_DISTANCE
                                          *Math.sin(direction));
              enemies.push(createEnemy(enemyPosition));
+        },
+        checkGameOver(){
+            if (player.health < 1){
+                gameOver = true;
+            }
         },
         checkSpawnEnemy(delta){
             enemySpawnTimer -= delta;
@@ -66,14 +72,18 @@ const createGame = () =>{
             });
         },
         checkKeyPressed() {
-            if (control.isDown("Escape")){
-                let now = performance.now()*0.001;
-                if (lastTimePressedKey === null ) lastTimePressedKey = now;
-                if (now-lastTimePressedKey > KEY_PRESS_DELAY ){
-                    isPaused = !isPaused;
-                    lastTimePressedKey = now;
-                }
+            let now = performance.now()*0.001;
+            if (lastTimePressedKey === null ) lastTimePressedKey = now;
+            if (now-lastTimePressedKey < KEY_PRESS_DELAY ){
+                return;
             }
+            if (control.isDown("Escape") && !gameOver){
+                isPaused = !isPaused;
+            }
+            else if (control.isDown("Enter") && gameOver){
+                this.restart();
+            }
+            lastTimePressedKey = now;
         },
         restart(){
             player = createPlayer();
@@ -81,18 +91,32 @@ const createGame = () =>{
             enemySpawnTimer = ENEMY_SPAWN_RATE;
             difficultyRate = ENEMY_SPAWN_RATE;
             isPaused = false;
+            gameOver = false;
         },
         update(delta){
             this.checkKeyPressed();
-            if (isPaused){
+            if (isPaused || gameOver){
                 return;
             }
+            this.checkGameOver();
             this.checkSpawnEnemy(delta);
             this.checkBulletCollision();
             this.checkPlayerCollision();
             enemies = enemies.filter(checkEnemyIsAlive);
             enemies.forEach(enemy => {enemy.update(delta, player.position)});
             player.update(delta);
+        },
+        drawGameOver(context){
+            let gameOverTextPosition = vector2(innerWidth/2-400, innerHeight/2);
+            let gameOverdText = createText(`Game Over (Press enter to continue)`,
+                                        "#000", 0,  gameOverTextPosition);
+
+            let scoreTextPosition = vector2(innerWidth/2-400, innerHeight/2+50);
+            let scoreText = createText(`You Scored: ${player.score}`, "#000", 0,
+                                        scoreTextPosition);
+            context.fillRect( 0, 0, innerWidth, innerHeight);
+            gameOverdText.render(context);
+            scoreText.render(context);
         },
         drawPaused(context){
             let pauseTextPosition = vector2(innerWidth/2-400, innerHeight/2);
@@ -109,6 +133,10 @@ const createGame = () =>{
             hud.draw(context, player.health, player.score);
             if (isPaused){
                 this.drawPaused(context);
+                return;
+            }
+            if (gameOver){
+                this.drawGameOver(context);
                 return;
             }
         }
