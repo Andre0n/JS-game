@@ -9,6 +9,7 @@ const keys = {
     "s" : false,
     "d" : false,
     "Escape" : false,
+    "Enter" : false
 };
 
 const control = (() => {
