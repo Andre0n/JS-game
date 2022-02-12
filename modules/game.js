@@ -9,7 +9,7 @@ import utils from "./utils.js";
 const ENEMY_SPAWN_RATE = 1.0;
 const ENEMY_SPAWN_DISTANCE = 1500;
 const DIFFICULTY_RATE_INCREASE = 1.01;
-const  KEY_PRESS_DELAY = 1/2;
+const  KEY_PRESS_DELAY = 0.25/2;
 
 const checkEnemyIsAlive = enemy => enemy.isAlive;
 const checkPlayerIsAlive = player => player.isAlive;
