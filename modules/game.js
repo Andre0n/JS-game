@@ -1,6 +1,7 @@
 import createPlayer from "./player.js";
 import createEnemy from "./enemy.js";
 import createText from "./text.js";
+import createParticle from "./particles.js";
 import hud from "./hud.js";
 import control from "./control.js";
 import vector2 from "./vector2.js";
@@ -13,6 +14,13 @@ const  KEY_PRESS_DELAY = 0.25/2;
 
 const checkEnemyIsAlive = enemy => enemy.isAlive;
 const checkPlayerIsAlive = player => player.isAlive;
+const checkParticleIsAlive = particle => particle.lifeTime > 0;
+const particlesBurst = (particles,position, color) => {
+    let amount = utils.randomInRange(20, 100);
+    for (let i=0; i<amount; i++) {
+        particles.push(createParticle(position,color));
+    }
+};
 
 const createGame = () =>{
     let player = createPlayer();
@@ -22,7 +30,7 @@ const createGame = () =>{
     let isPaused = false;
     let lastTimePressedKey = null;
     let gameOver = false;
-
+    let particles = [];
     return {
         player: player,
         spawnEnemy(){
@@ -53,6 +61,7 @@ const createGame = () =>{
                         if(enemy.position.distanceTo(bullet.position)
                             <= bullet.radius + enemy.radius ){
                             bullet.lifeTime = 0;
+                            particlesBurst(particles,enemy.position,enemy.color);
                             enemy.isAlive = false;
                             player.increaseScore();
                         }
@@ -66,6 +75,7 @@ const createGame = () =>{
                     if(enemy.position.distanceTo(player.position)
                         <= player.radius + enemy.radius ){
                         player.damage();
+                        particlesBurst(particles,enemy.position, enemy.color);
                         enemy.isAlive = false;
                     }
                 }
@@ -104,6 +114,8 @@ const createGame = () =>{
             this.checkPlayerCollision();
             enemies = enemies.filter(checkEnemyIsAlive);
             enemies.forEach(enemy => {enemy.update(delta, player.position)});
+            particles = particles.filter(checkParticleIsAlive);
+            particles.forEach(particle => particle.update(delta));
             player.update(delta);
         },
         drawGameOver(context){
@@ -129,6 +141,7 @@ const createGame = () =>{
         draw(context){
             context.clearRect(0, 0, window.innerWidth, window.innerHeight);
             enemies.forEach(enemy => {enemy.draw(context)});
+            particles.forEach(particle => {particle.draw(context)});
             player.draw(context);
             hud.draw(context, player.health, player.score);
             if (isPaused){
