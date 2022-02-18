@@ -97,7 +97,7 @@ const createGame = () =>{
         },
         restart(){
             player = createPlayer();
-            enemies = [];
+            enemies.length = 0;
             particles.length = 0;
             enemySpawnTimer = ENEMY_SPAWN_RATE;
             difficultyRate = ENEMY_SPAWN_RATE;
