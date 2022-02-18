@@ -22,7 +22,7 @@ const createParticle = (position, color) => {
     particle.update = delta => {
         particle.lifeTime -= delta;
         particle.position = particle.position.add(particle.velocity.scalar(delta));
-        particle.alpha = particle.alpha > 0 ? particle.alpha - 1: 0;
+        particle.alpha = particle.alpha > 0 ? particle.alpha - 2 : 0;
     };
     particle.draw = context => {
         particle.color = `${colorWithoutAlpha}${particle.alpha}`;
